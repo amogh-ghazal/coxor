@@ -2,6 +2,22 @@
 
 Coxor is a deliberately useless web chat app. It turns every message into Morse code, generates a 1000 Hz WAV file, and makes another browser press **Decode** to get the text back.
 
+## Team
+
+- **Amogh Suresh** — backend, WebSockets, Morse/WAV pipeline, deployment
+- **Adish Sai** — frontend interface, PWA experience, testing and presentation
+
+## What to submit
+
+Coxor is a **software project**. The GitHub repository is where the project code and README are kept; it is not the final submission form by itself.
+
+Submit the project through the **TinkerHub Hub app**, using the same account/app used to register for Useless Projects 3.0. In the project submission form, provide both of these:
+
+- **GitHub repository:** https://github.com/amogh-ghazal/coxor
+- **Live project:** https://coxor.onrender.com
+
+Open https://useless.tinkerhub.org/ to access the event and Hub app. Choose the Useless Projects 3.0 project submission option, select **Software**, add both team members, paste the GitHub and live links, and submit. The official handbook requires a live link and GitHub repository for software projects.
+
 ## Run locally
 
 ```powershell
