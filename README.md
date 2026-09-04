@@ -14,6 +14,10 @@ uvicorn server:app --host 0.0.0.0 --port 8000
 
 Open `http://localhost:8000` on the host laptop. To use a second laptop on the same Wi-Fi, open `http://HOST-LAN-IP:8000` in its browser. Find the host IP with `ipconfig`.
 
+## Optional free deployment
+
+The included `render.yaml` describes a free Render web service. Create a Render account, connect the `amogh-ghazal/coxor` repository, and deploy the blueprint. The free service may sleep when unused, but it is enough for a demo. The local Wi-Fi setup above remains the simplest zero-account demo.
+
 The message notification contains only a message ID and audio URL. The server keeps the Morse representation in memory, and Decode converts that stored Morse back into text. No database, microphone, cloud service, API key, or paid deployment is required.
 
 ## Structure
