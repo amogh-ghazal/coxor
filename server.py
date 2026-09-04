@@ -4,7 +4,7 @@ import json
 import uuid
 from pathlib import Path
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -15,6 +15,7 @@ ROOT = Path(__file__).parent
 AUDIO_DIR = ROOT / "generated_audio"
 MESSAGES: dict[str, dict[str, str]] = {}
 CLIENTS: set[WebSocket] = set()
+MAX_MESSAGE_LENGTH = 500
 
 app = FastAPI(title="Coxor")
 app.mount("/static", StaticFiles(directory=ROOT / "static"), name="static")
@@ -28,7 +29,10 @@ async def home() -> FileResponse:
 @app.get("/audio/{filename}")
 async def audio_file(filename: str) -> FileResponse:
     safe_name = Path(filename).name
-    return FileResponse(AUDIO_DIR / safe_name, media_type="audio/wav", filename=safe_name)
+    path = AUDIO_DIR / safe_name
+    if not path.is_file() or path.suffix.lower() != ".wav":
+        raise HTTPException(status_code=404, detail="Audio not found.")
+    return FileResponse(path, media_type="audio/wav", filename=safe_name)
 
 
 async def broadcast(event: dict) -> None:
@@ -47,12 +51,23 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
     CLIENTS.add(websocket)
     try:
         while True:
-            request = json.loads(await websocket.receive_text())
+            try:
+                request = json.loads(await websocket.receive_text())
+            except json.JSONDecodeError:
+                await websocket.send_json({"type": "error", "message": "Invalid message format."})
+                continue
             request_type = request.get("type")
 
             if request_type == "send_message":
-                text = str(request.get("text", "")).strip()
+                text = request.get("text", "")
+                if not isinstance(text, str):
+                    await websocket.send_json({"type": "error", "message": "Message must be text."})
+                    continue
+                text = text.strip()
                 if not text:
+                    continue
+                if len(text) > MAX_MESSAGE_LENGTH:
+                    await websocket.send_json({"type": "error", "message": "Message is too long."})
                     continue
                 message_id = uuid.uuid4().hex[:10]
                 morse = text_to_morse(text)

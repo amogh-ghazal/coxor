@@ -1,5 +1,7 @@
 """Small Morse encoder and decoder used by Coxor."""
 
+import re
+
 MORSE_CODE = {
     "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.",
     "G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..",
@@ -8,6 +10,7 @@ MORSE_CODE = {
     "Y": "-.--", "Z": "--..",
     "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-",
     "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----.",
+    "?": "..--..",
 }
 
 REVERSE_MORSE = {code: character for character, code in MORSE_CODE.items()}
@@ -15,8 +18,10 @@ REVERSE_MORSE = {code: character for character, code in MORSE_CODE.items()}
 
 def text_to_morse(text: str) -> str:
     """Convert supported text to Morse; unsupported characters become '?'."""
+    if not text.strip():
+        return ""
     words = []
-    for word in text.upper().split(" "):
+    for word in re.split(r"\s+", text.strip().upper()):
         symbols = [MORSE_CODE.get(character, "?") for character in word]
         words.append(" ".join(symbols))
     return " / ".join(words)
