@@ -1,4 +1,4 @@
-const CACHE_NAME = 'coxor-shell-v1';
+const CACHE_NAME = 'coxor-shell-v2';
 const APP_SHELL = ['/', '/static/style.css', '/static/script.js', '/static/icons/coxor.svg', '/manifest.webmanifest'];
 
 self.addEventListener('install', event => {

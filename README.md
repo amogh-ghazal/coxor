@@ -22,7 +22,7 @@ The message notification contains only a message ID and audio URL. The server ke
 
 ## Install on a phone
 
-Coxor is also a responsive PWA. On Android, open the deployed site in Chrome and choose **Add to Home screen**. On iPhone/iPad, open it in Safari, tap **Share**, then **Add to Home Screen**. Windows and Mac users can continue using the normal browser website. The app shell can load offline, while live messaging still requires an internet connection.
+Coxor is also a responsive PWA. On Android, open the deployed site in Chrome and choose **Add to Home screen**. On iPhone/iPad, open it in Safari, tap **Share**, then **Add to Home Screen**. If an older Coxor tab is open, close it and reopen the link once so Safari receives the latest app shell. Windows and Mac users can continue using the normal browser website. The app shell can load offline, while live messaging still requires an internet connection.
 
 ## Structure
 

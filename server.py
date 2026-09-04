@@ -23,17 +23,17 @@ app.mount("/static", StaticFiles(directory=ROOT / "static"), name="static")
 
 @app.get("/")
 async def home() -> FileResponse:
-    return FileResponse(ROOT / "static" / "index.html")
+    return FileResponse(ROOT / "static" / "index.html", headers={"Cache-Control": "no-store"})
 
 
 @app.get("/manifest.webmanifest")
 async def manifest() -> FileResponse:
-    return FileResponse(ROOT / "static" / "manifest.webmanifest", media_type="application/manifest+json")
+    return FileResponse(ROOT / "static" / "manifest.webmanifest", media_type="application/manifest+json", headers={"Cache-Control": "no-store"})
 
 
 @app.get("/sw.js")
 async def service_worker() -> FileResponse:
-    return FileResponse(ROOT / "static" / "sw.js", media_type="application/javascript")
+    return FileResponse(ROOT / "static" / "sw.js", media_type="application/javascript", headers={"Cache-Control": "no-store"})
 
 
 @app.get("/audio/{filename}")

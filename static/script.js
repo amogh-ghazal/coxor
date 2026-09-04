@@ -29,14 +29,17 @@ function connect() {
 }
 connect();
 
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.addEventListener('controllerchange', () => window.location.reload());
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).then(registration => registration.update()).catch(() => {});
+}
 
 const installCard = document.querySelector('#install-card');
 const installButton = document.querySelector('#install-button');
 const installHelp = document.querySelector('#install-help');
 const installTitle = document.querySelector('#install-title');
 const iosSteps = document.querySelector('#ios-steps');
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredInstall = event; if (!isStandalone) installCard.hidden = false; });
 if (isIOS && !isStandalone) { installCard.hidden = false; installButton.hidden = true; installTitle.textContent = 'INSTALL COXOR ON IPHONE'; installHelp.hidden = true; iosSteps.hidden = false; }
