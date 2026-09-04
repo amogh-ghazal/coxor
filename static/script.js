@@ -34,10 +34,12 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').cat
 const installCard = document.querySelector('#install-card');
 const installButton = document.querySelector('#install-button');
 const installHelp = document.querySelector('#install-help');
+const installTitle = document.querySelector('#install-title');
+const iosSteps = document.querySelector('#ios-steps');
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredInstall = event; if (!isStandalone) installCard.hidden = false; });
-if (isIOS && !isStandalone) { installCard.hidden = false; installButton.hidden = true; installHelp.textContent = 'In Safari, tap Share, then “Add to Home Screen”.'; }
+if (isIOS && !isStandalone) { installCard.hidden = false; installButton.hidden = true; installTitle.textContent = 'INSTALL COXOR ON IPHONE'; installHelp.hidden = true; iosSteps.hidden = false; }
 installButton.addEventListener('click', async () => { if (!deferredInstall) return; deferredInstall.prompt(); await deferredInstall.userChoice; deferredInstall = null; installCard.hidden = true; });
 
 function addMessage(event) {
