@@ -20,6 +20,10 @@ The included `render.yaml` describes a free Render web service. Create a Render 
 
 The message notification contains only a message ID and audio URL. The server keeps the Morse representation in memory, and Decode converts that stored Morse back into text. No database, microphone, cloud service, API key, or paid deployment is required.
 
+## Install on a phone
+
+Coxor is also a responsive PWA. On Android, open the deployed site in Chrome and choose **Add to Home screen**. On iPhone/iPad, open it in Safari, tap **Share**, then **Add to Home Screen**. Windows and Mac users can continue using the normal browser website. The app shell can load offline, while live messaging still requires an internet connection.
+
 ## Structure
 
 - `server.py` — FastAPI routes, WebSocket connections, and in-memory messages.

@@ -2,7 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101b68">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Coxor">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/static/icons/coxor.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/static/icons/coxor.svg">
   <title>Coxor — Morse Chat</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -28,6 +36,11 @@
       </div>
       <div class="hint"><span>FREE TEXT · A–Z · 0–9</span><span id="char-count">0 / 500</span></div>
     </section>
+
+    <aside id="install-card" class="install-card panel" hidden>
+      <div><strong>MAKE COXOR A DEVICE</strong><span id="install-help">Install the Morse relay for quicker access.</span></div>
+      <button id="install-button">ADD TO HOME SCREEN</button>
+    </aside>
 
     <section class="feed-heading"><span>LIVE RELAY</span><span id="message-count">00 messages</span></section>
     <section id="message-feed" class="message-feed"><div class="empty-state">Waiting for a transmission<span>Open Coxor in another browser to begin.</span></div></section>

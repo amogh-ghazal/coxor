@@ -1,0 +1,13 @@
+{
+  "name": "Coxor — Morse Audio Chat",
+  "short_name": "Coxor",
+  "description": "A deliberately useless Morse-code audio chat.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080d35",
+  "theme_color": "#101b68",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/static/icons/coxor.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

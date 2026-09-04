@@ -26,6 +26,16 @@ async def home() -> FileResponse:
     return FileResponse(ROOT / "static" / "index.html")
 
 
+@app.get("/manifest.webmanifest")
+async def manifest() -> FileResponse:
+    return FileResponse(ROOT / "static" / "manifest.webmanifest", media_type="application/manifest+json")
+
+
+@app.get("/sw.js")
+async def service_worker() -> FileResponse:
+    return FileResponse(ROOT / "static" / "sw.js", media_type="application/javascript")
+
+
 @app.get("/audio/{filename}")
 async def audio_file(filename: str) -> FileResponse:
     safe_name = Path(filename).name

@@ -8,6 +8,7 @@ const charCount = document.querySelector('#char-count');
 let messageTotal = 0;
 let socket;
 let reconnectTimer;
+let deferredInstall;
 
 const protocol = location.protocol === 'https:' ? 'wss' : 'ws';
 
@@ -27,6 +28,17 @@ function connect() {
   });
 }
 connect();
+
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+
+const installCard = document.querySelector('#install-card');
+const installButton = document.querySelector('#install-button');
+const installHelp = document.querySelector('#install-help');
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredInstall = event; if (!isStandalone) installCard.hidden = false; });
+if (isIOS && !isStandalone) { installCard.hidden = false; installButton.hidden = true; installHelp.textContent = 'In Safari, tap Share, then “Add to Home Screen”.'; }
+installButton.addEventListener('click', async () => { if (!deferredInstall) return; deferredInstall.prompt(); await deferredInstall.userChoice; deferredInstall = null; installCard.hidden = true; });
 
 function addMessage(event) {
   document.querySelector('.empty-state')?.remove();
